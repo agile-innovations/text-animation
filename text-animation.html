@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Velocity.js: Demo</title>
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width=device-width, minimal-ui">
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+			pointer-events: none;
+		}
+
+		body {
+			background: #060b14;
+			overflow: hidden;
+
+			font-family: "Helvetica Neue", "Open Sans";
+			font-weight: bold;
+			font-size: 1em;
+		}
+
+		#container {
+			perspective: 50px;
+			-webkit-perspective: 50px;
+			-moz-perspective: 50px;
+			-ms-perspective: 50px;
+
+			transform-origin: 50% 100%;
+			-webkit-transform-origin: 50% 100%;
+			-moz-transform-origin: 50% 100%;
+			-ms-transform-origin: 50% 100%;
+
+			opacity: 0.55;
+		}
+
+		.rectangle {
+			position: fixed;
+			width: 140px;
+			height: 20px;
+      text-align: center;
+			background-color: #4bc2f1;
+		}
+	</style>
+</head>
+<body>
+	<div id="container"></div>
+	<script src="https://code.jquery.com/jquery-1.11.2.js"></script>
+ 	<script src="velocity.js"></script>
+  <script src="jquery.blast.js"></script>
+	<script>
+	/************************
+    	Element Variables
+	************************/
+
+	var $container = $("#container");
+
+	/************************
+    	Animation Setup
+	************************/
+
+	/* Randomly generate an integer between two numbers. */
+	function r (min, max) {
+	    return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+
+	/* Query the window’s dimensions. */
+	var screenWidth = window.screen.availWidth,
+		screenHeight = window.screen.availHeight;
+
+	/* Define our z-axis animation range. */
+	var translateZMin = -725, translateZMax = 600;
+		var wordText = "";
+		var parsedText = "";
+
+		wordText += "dietary biomarkers,dry bean,etabolome, bran,ammonia, deposition, emissions, methane, sensors";
+		wordText += ",economics, efficiency, energy, grain, model,enzymes,digestion,concentration, detection";
+		wordText += ",Feed intake, Heat stress, Lactation, feed intake, heat stress, lactation,carcinogenesis, inflammation";
+		wordText += "metabolites,lipidomics,equipment,food properties, rheology, tribology, Tilapia, aquaculture,ingredients";
+		wordText += ",fishmeal, microalgae culture, Beef, Myoglobin, Protein";
+		wordText += ",catecholamines, insulin sensitivity, intrauterine, growth, restriction, skeletal, muscle,  bumble bee, crithidia, parasite";
+		wordText += ",phytochemical,plant,metabolites, trypanosome, aggregates, carbon, carbon sequestration, cover crops, micro-CT scanning";
+		wordText += ",stable isotopes,celiac, disease, dietary, polyphenol, gliadin, intestinal, permeability, protein";
+		wordText += ",environmental toxins, lipid signaling, mammalian cell, mitochondria, toxicity, trichothecenes, yeast, antibodies, bovine leukemia virus";
+		wordText += ",immune dysfunction, t cells, vaccine, R-plasmid, antibiotic resistance, plasmid curing";
+		wordText += ",Carduus nutans, biological control, climate change, phenology, weed management, isotopes, microbiome, nitrogen, nutrient use";
+		wordText += ",nutrient use efficiency, transcriptome, awareness, farmers market, low-income, urban, ,genetic architecture, maize, selection";
+		wordText += ",genotype, genetic, glycine max, herbivores, phytohormones, pollinators, soybean cyst nematodes";
+		wordText += ",soybeans, modeling, robotics, simulation, virtual";
+		wordText += ",biochemistry, metabolism, oomycete, pathogenesis, haustoria, fungus, necrotrophic effector, pathogen, wheat,";
+		wordText += ",biosensors, conference, diagnosis, nanobiotechnology,,fungicides, honey bee, nutrition, pollen, pollination, queen quality, royal jelly";
+		wordText += ",cattle, culicoides, livestock, overwintering, sheep, vector,,organic, tillage, vegetable, weeds, ,carbon, ecosy";
+		wordText += "anaerobic,fermentation, bacterial, genetics, bacterial physiology, bioconversion, bioengineering, byproducts, carbon dioxide, dna, escherichia coli";
+		wordText += ",gene products, genetic engineering, glycerol, microbial cultures, molecular biology, process development, strains";
+		wordText += ",asuccinates, value added, waste utilization, fermentation, \1cteria detection, biosensor, electroporation, immunoassay";
+		wordText += ",listeria monocytogenes, microfluidics, nanoporous silicon, anaerobic digestion, poultry litter, animal waste, bioenergy";
+		wordText += ",bacteria, metagenomics, microbial ecology, methane, agricultural waste utilization, sustainability, methanogen";
+		wordText += "biofuels, energy crops, root architecture, switchgrass, brachypodium, carbon sequestration,";
+		wordText += "E. coli, bacterial contamination, bacterial identification, bacterial imaging, genomic, water quality";
+		wordText += ",bacteria, metagenomics, microbial ecology, methane, agricultural waste utilization, sustainability, methanogen";
+		wordText += "Geonomics, Photobioreactor, algae, algae biofuel, and Catalysts, biodiesel, genetic modification"
+		wordText += "biomass, feedstock, photobioreactor, renewable fuel, renewable fuels";
+		wordText += "biobutanol, biofuels, c. acetobutylicum, c. cellulolyticum, cellulolytic, cellulose, cellulosome, clostridia, ethanol, hemicellulose, sporulation";
+
+		parsedText = wordText.toUpperCase().trim().split(",");
+	/**********************
+	    Circle Creation
+	**********************/
+	var rectCount = 220, rectanglesHtml = "", rectangles = "";
+
+	for (var i = 0; i < rectCount; i++) {
+		rectanglesHtml += "<div class='rectangle'>"+ parsedText[i] +"</div>";
+	}
+
+// 2016-06-07 ODS: Use Blast.js to parse out all words and style them as divs
+
+
+	$rectangles = $(rectanglesHtml);
+
+	/******************************
+	     Container Animation
+	******************************/
+
+	$container
+		.css("perspective-origin", screenWidth/2 + "px " + screenHeight/2 + "px")
+		.velocity(
+		{
+			perspective: [ 215, 50 ],
+			opacity: [ 0.90, 0.55 ]
+		}, {
+			duration: 800,
+			loop: 1,
+			delay: 3000
+		});
+
+	/***************************
+	     Circles Animation
+	***************************/
+
+	$rectangles
+		.appendTo($container)
+		.velocity({
+			opacity: [
+				function() { return Math.random() },
+				function() { return Math.random() + 0.1 }
+			],
+			translateX: [
+				function() { return "+=" + r(-screenWidth/2.5, screenWidth/2.5) },
+				function() { return r(0, screenWidth) }
+			],
+			translateY: [
+				function() { return "+=" + r(-screenHeight/2.75, screenHeight/2.75) },
+				function() { return r(0, screenHeight) }
+			],
+			translateZ: [
+				function() { return "+=" + r(translateZMin, translateZMax) },
+				function() { return r(translateZMin, translateZMax) }
+			]
+		}, { duration: 10000})
+		.velocity("reverse", { easing: "easeOutQuad" })
+		.velocity({ opacity: 0 }, 4000);
+
+		// 2016-06-07 OD: Add wordText
+
+
+	</script>
+</body>
+</html>
