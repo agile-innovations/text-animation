@@ -1,0 +1,30 @@
+
+      body {
+       background: #060b14;
+       overflow: hidden;
+
+       font-family: "Helvetica Neue", "Open Sans";
+       font-weight: bold;
+     }
+
+     #container {
+       perspective: 50px;
+       -webkit-perspective: 50px;
+       -moz-perspective: 50px;
+       -ms-perspective: 50px;
+
+       transform-origin: 50% 100%;
+       -webkit-transform-origin: 50% 100%;
+       -moz-transform-origin: 50% 100%;
+       -ms-transform-origin: 50% 100%;
+
+       opacity: 0.55;
+     }
+
+     .rectangle {
+       position: fixed;
+       width: 120px;
+       height: 20px;
+       text-align: center;
+       background-color: #4bc2f1;
+     }

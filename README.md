@@ -1,3 +1,2 @@
 #### Text animation forked from Julian Shapiros' version using Circles
-
-Uses velocity.js
+Converted to use words and rectangles instead of random sized circles
